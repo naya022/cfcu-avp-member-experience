@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Naya Roquemore | AVP Member Experience | Chevron FCU</title>
+<style>
+:root {
+  --cfcu-blue: #0054A4;
+  --cfcu-blue-light: #198FCB;
+  --cfcu-blue-pale: #E8F4FB;
+  --cfcu-green: #2E7D32;
+  --cfcu-green-light: #4CAF50;
+  --cfcu-green-pale: #E8F5E9;
+  --cfcu-navy: #002B5C;
+  --cfcu-gold: #C8922A;
+  --cfcu-gold-pale: #FBF4E4;
+  --cfcu-red: #C62828;
+  --cfcu-red-pale: #FFEBEE;
+  --white: #FFFFFF;
+  --gray-50: #F8F9FA;
+  --gray-100: #EAECF0;
+  --gray-300: #B0B8C4;
+  --gray-500: #6B7685;
+  --gray-700: #374151;
+  --gray-900: #111827;
+  --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --r: 12px;
+  --r-lg: 20px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:var(--font);background:#000;overflow:hidden}
+
+/* SHELL */
+.pres{width:100vw;height:100vh;position:relative;overflow:hidden}
+.slide{position:absolute;inset:0;display:none;animation:slideIn .4s ease}
+.slide.active{display:flex;flex-direction:column}
+@keyframes slideIn{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+
+/* NAV */
+.nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:space-between;padding:10px 24px;border-top:1px solid rgba(255,255,255,.1)}
+.nav-btn{background:none;border:1px solid rgba(255,255,255,.25);color:#fff;padding:7px 20px;border-radius:8px;
+  font-size:13px;cursor:pointer;transition:all .2s;font-family:var(--font)}
+.nav-btn:hover{background:rgba(255,255,255,.1)}
+.nav-btn:disabled{opacity:.3;cursor:not-allowed}
+.slide-counter{color:rgba(255,255,255,.5);font-size:12px;text-align:center}
+.slide-dots{display:flex;gap:5px;align-items:center;justify-content:center;margin-top:4px}
+.dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.25);transition:all .3s;cursor:pointer}
+.dot.active{background:#198FCB;width:18px;border-radius:99px}
+.dot.done{background:rgba(255,255,255,.5)}
+
+/* FULL BLUE BG */
+.bg-blue{background:linear-gradient(135deg,#002B5C 0%,#0054A4 60%,#198FCB 100%)}
+.bg-navy{background:var(--cfcu-navy)}
+.bg-white{background:var(--white)}
+.bg-light{background:var(--gray-50)}
+.bg-green{background:linear-gradient(135deg,#1B5E20 0%,#2E7D32 60%,#43A047 100%)}
+
+/* CFCU LOGO MARK */
+.cfcu-mark{display:flex;align-items:center;gap:10px}
+.cfcu-icon{width:44px;height:44px;border-radius:10px;background:#fff;display:flex;align-items:center;
+  justify-content:center;flex-shrink:0}
+.cfcu-icon svg{width:28px;height:28px}
+.cfcu-wordmark{color:#fff;line-height:1.1}
+.cfcu-wordmark strong{font-size:14px;letter-spacing:.5px;display:block}
+.cfcu-wordmark span{font-size:11px;opacity:.7}
+
+/* SLIDE TYPES */
+
+/* ── SLIDE 1: HERO ── */
+.hero-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:3rem 4rem 5rem;text-align:center;position:relative;overflow:hidden}
+.hero-logo-bar{position:absolute;top:2rem;left:2rem}
+.hero-bg-circle{position:absolute;width:600px;height:600px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.08);top:-200px;right:-200px;pointer-events:none}
+.hero-bg-circle2{position:absolute;width:400px;height:400px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.06);bottom:-150px;left:-100px;pointer-events:none}
+.hero-avatar{width:110px;height:110px;border-radius:50%;background:var(--cfcu-blue-light);
+  border:4px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;
+  font-size:36px;font-weight:700;color:#fff;margin-bottom:1.5rem;position:relative;z-index:1}
+.hero-avatar-ring{position:absolute;width:126px;height:126px;border-radius:50%;
+  border:2px solid rgba(255,255,255,.2);animation:pulse 2.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:.6}50%{transform:scale(1.05);opacity:.3}}
+.hero-tag{background:rgba(255,255,255,.12);color:rgba(255,255,255,.8);font-size:12px;
+  padding:4px 14px;border-radius:99px;letter-spacing:.08em;text-transform:uppercase;
+  margin-bottom:1.25rem;display:inline-block;border:1px solid rgba(255,255,255,.2)}
+.hero-name{font-size:48px;font-weight:800;color:#fff;letter-spacing:-1px;margin-bottom:.5rem}
+.hero-role{font-size:20px;color:rgba(255,255,255,.75);font-weight:300;margin-bottom:.5rem}
+.hero-divider{width:60px;height:3px;background:var(--cfcu-gold);border-radius:99px;margin:.75rem auto}
+.hero-company{font-size:16px;color:#7EC8E3;font-weight:500;margin-bottom:2rem}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:2rem}
+.hero-chip{background:rgba(255,255,255,.1);color:rgba(255,255,255,.9);font-size:12px;
+  padding:5px 14px;border-radius:99px;border:1px solid rgba(255,255,255,.15)}
+.hero-date{color:rgba(255,255,255,.4);font-size:12px}
+
+/* ── SLIDE 2: ABOUT CFCU ── */
+.content-pad{flex:1;padding:2.5rem 3rem 5rem;overflow-y:auto}
+.slide-eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;
+  color:var(--cfcu-blue-light);margin-bottom:.5rem}
+.slide-title{font-size:32px;font-weight:800;color:var(--cfcu-navy);line-height:1.15;margin-bottom:.5rem}
+.slide-sub{font-size:14px;color:var(--gray-500);max-width:680px;line-height:1.7;margin-bottom:1.75rem}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem}
+.stat-box{background:var(--white);border:1px solid var(--gray-100);border-radius:var(--r);
+  padding:1.1rem 1rem;text-align:center;border-top:3px solid var(--cfcu-blue)}
+.stat-n{font-size:26px;font-weight:800;color:var(--cfcu-navy)}
+.stat-l{font-size:11px;color:var(--gray-500);margin-top:3px;line-height:1.4}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.info-card{background:var(--white);border:1px solid var(--gray-100);border-radius:var(--r);padding:1.1rem 1.25rem}
+.info-card-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--cfcu-blue);margin-bottom:.6rem}
+.info-card-body{font-size:13px;color:var(--gray-700);line-height:1.65}
+.tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:.6rem}
+.tag{font-size:11px;padding:3px 10px;border-radius:99px;background:var(--cfcu-blue-pale);
+  color:var(--cfcu-blue);font-weight:500}
+.tag-green{background:var(--cfcu-green-pale);color:var(--cfcu-green)}
+
+/* ── SLIDE 3: 2025 STRATEGIC HIGHLIGHTS ── */
+.timeline{display:flex;flex-direction:column;gap:12px;margin-bottom:1.5rem}
+.tl-item{display:flex;gap:14px;align-items:flex-start}
+.tl-icon{width:36px;height:36px;border-radius:50%;background:var(--cfcu-blue-pale);
+  display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;
+  border:2px solid var(--cfcu-blue-light)}
+.tl-body{}
+.tl-title{font-size:13px;font-weight:700;color:var(--cfcu-navy);margin-bottom:2px}
+.tl-text{font-size:12px;color:var(--gray-500);line-height:1.55}
+.highlight-strip{background:var(--cfcu-navy);border-radius:var(--r-lg);padding:1.25rem 1.5rem;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.25rem}
+.hs-item{text-align:center}
+.hs-num{font-size:24px;font-weight:800;color:var(--cfcu-gold)}
+.hs-lbl{font-size:11px;color:rgba(255,255,255,.6);margin-top:3px}
+.annual-quote{background:var(--cfcu-blue-pale);border-left:3px solid var(--cfcu-blue);
+  border-radius:0 var(--r) var(--r) 0;padding:1rem 1.25rem;font-size:13px;color:var(--gray-700);
+  line-height:1.7;font-style:italic;margin-bottom:1rem}
+
+/* ── SLIDE 4: THE CHALLENGE ── */
+.challenge-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.25rem}
+.challenge-card{border-radius:var(--r);padding:1.1rem 1.25rem;border:1px solid}
+.challenge-card.red{background:var(--cfcu-red-pale);border-color:#EF9A9A}
+.challenge-card.blue{background:var(--cfcu-blue-pale);border-color:#90CAF9}
+.challenge-card.gold{background:var(--cfcu-gold-pale);border-color:#FFD54F}
+.challenge-card.green{background:var(--cfcu-green-pale);border-color:#A5D6A7}
+.cc-icon{font-size:22px;margin-bottom:.5rem}
+.cc-title{font-size:13px;font-weight:700;color:var(--cfcu-navy);margin-bottom:4px}
+.cc-body{font-size:12px;line-height:1.6;color:var(--gray-700)}
+.avp-role-box{background:var(--cfcu-navy);border-radius:var(--r-lg);padding:1.25rem 1.5rem;color:#fff}
+.avp-role-title{font-size:14px;font-weight:700;color:var(--cfcu-gold);margin-bottom:.75rem}
+.avp-duties{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.avp-duty{display:flex;align-items:flex-start;gap:7px;font-size:12px;color:rgba(255,255,255,.85);line-height:1.5}
+.avp-dot{width:6px;height:6px;border-radius:50%;background:var(--cfcu-blue-light);flex-shrink:0;margin-top:5px}
+
+/* ── SLIDE 5: MY JOURNEY (AVATAR) ── */
+.avatar-section{display:flex;gap:2rem;align-items:flex-start;margin-bottom:1.5rem}
+.big-avatar{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#0054A4,#198FCB);
+  display:flex;align-items:center;justify-content:center;font-size:32px;color:#fff;
+  flex-shrink:0;border:3px solid var(--cfcu-blue-light)}
+.avatar-speech{background:var(--white);border:1px solid var(--gray-100);border-radius:var(--r-lg);
+  padding:1.1rem 1.4rem;position:relative;flex:1;font-size:13px;color:var(--gray-700);line-height:1.7}
+.avatar-speech::before{content:'';position:absolute;left:-10px;top:28px;
+  border:6px solid transparent;border-right-color:var(--white)}
+.exp-timeline{display:flex;flex-direction:column;gap:0}
+.exp-item{display:flex;gap:14px;position:relative}
+.exp-item:not(:last-child) .exp-line{position:absolute;left:17px;top:38px;bottom:0;width:2px;background:var(--gray-100)}
+.exp-circle{width:34px;height:34px;border-radius:50%;background:var(--cfcu-blue);color:#fff;
+  font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1}
+.exp-content{padding-bottom:1rem}
+.exp-title{font-size:13px;font-weight:700;color:var(--cfcu-navy)}
+.exp-co{font-size:11px;color:var(--cfcu-blue-light);font-weight:600}
+.exp-date{font-size:10px;color:var(--gray-300)}
+.exp-bullets{font-size:12px;color:var(--gray-500);line-height:1.6;margin-top:3px}
+.cert-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:1rem}
+.cert{background:var(--cfcu-gold-pale);border:1px solid var(--cfcu-gold);color:#92650A;
+  font-size:11px;font-weight:600;padding:4px 12px;border-radius:99px}
+
+/* ── SLIDE 6: VALUE I BRING ── */
+.value-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:1.25rem}
+.value-card{background:var(--white);border:1px solid var(--gray-100);border-radius:var(--r);
+  padding:1.1rem;border-top:3px solid var(--cfcu-blue);transition:transform .2s}
+.value-card:hover{transform:translateY(-3px)}
+.vc-icon{font-size:24px;margin-bottom:.5rem}
+.vc-title{font-size:13px;font-weight:700;color:var(--cfcu-navy);margin-bottom:.4rem}
+.vc-body{font-size:12px;color:var(--gray-500);line-height:1.6}
+.vc-metric{display:inline-block;font-size:11px;font-weight:700;background:var(--cfcu-blue-pale);
+  color:var(--cfcu-blue);padding:2px 8px;border-radius:99px;margin-top:.4rem}
+.gap-map{background:var(--cfcu-navy);border-radius:var(--r-lg);padding:1.25rem;color:#fff}
+.gm-title{font-size:13px;font-weight:700;color:var(--cfcu-gold);margin-bottom:.75rem}
+.gm-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:12px}
+.gm-label{width:200px;flex-shrink:0;color:rgba(255,255,255,.85)}
+.gm-bar-track{flex:1;height:7px;background:rgba(255,255,255,.12);border-radius:99px;overflow:hidden}
+.gm-bar-fill{height:100%;border-radius:99px;transition:width 1s ease}
+.gm-pct{width:36px;text-align:right;color:rgba(255,255,255,.5);font-size:11px}
+
+/* ── SLIDE 7: TRIVIA GAME ── */
+.game-wrap{flex:1;display:flex;flex-direction:column;padding:2.5rem 3rem 5rem}
+.game-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
+.game-score-wrap{display:flex;align-items:center;gap:8px}
+.game-score{background:var(--cfcu-navy);color:var(--cfcu-gold);font-size:20px;font-weight:800;
+  padding:6px 16px;border-radius:var(--r)}
+.game-q{font-size:20px;font-weight:700;color:var(--cfcu-navy);margin-bottom:1.25rem;line-height:1.4}
+.game-choices{display:flex;flex-direction:column;gap:8px;margin-bottom:1.25rem}
+.game-choice{border:2px solid var(--gray-100);border-radius:var(--r);padding:12px 16px;
+  font-size:13px;color:var(--gray-700);cursor:pointer;background:var(--white);
+  text-align:left;font-family:var(--font);transition:all .2s;display:flex;align-items:center;gap:10px}
+.game-choice:hover{border-color:var(--cfcu-blue-light);background:var(--cfcu-blue-pale)}
+.game-choice.correct{border-color:var(--cfcu-green-light);background:var(--cfcu-green-pale);color:var(--cfcu-green)}
+.game-choice.wrong{border-color:var(--cfcu-red);background:var(--cfcu-red-pale);color:var(--cfcu-red)}
+.game-choice.disabled{pointer-events:none}
+.game-choice-letter{width:26px;height:26px;border-radius:50%;background:var(--gray-100);
+  display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;
+  color:var(--gray-500);flex-shrink:0}
+.game-feedback{background:var(--cfcu-blue-pale);border-radius:var(--r);padding:.85rem 1.1rem;
+  font-size:13px;color:var(--cfcu-navy);line-height:1.6;display:none}
+.game-progress{height:6px;background:var(--gray-100);border-radius:99px;overflow:hidden;margin-bottom:1.25rem}
+.game-progress-fill{height:100%;background:var(--cfcu-blue);border-radius:99px;transition:width .4s}
+.game-complete{text-align:center;padding:2rem}
+.game-trophy{font-size:60px;margin-bottom:1rem}
+.game-score-final{font-size:36px;font-weight:800;color:var(--cfcu-navy)}
+
+/* ── SLIDE 8: 90 DAY PLAN ── */
+.plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:1.25rem}
+.plan-phase{border-radius:var(--r-lg);padding:1.1rem;border:1px solid}
+.plan-phase.p1{background:#E3F2FD;border-color:#90CAF9}
+.plan-phase.p2{background:#E8F5E9;border-color:#A5D6A7}
+.plan-phase.p3{background:#FFF8E1;border-color:#FFE082}
+.ph-header{display:flex;align-items:center;gap:8px;margin-bottom:.75rem}
+.ph-num{width:28px;height:28px;border-radius:50%;font-size:12px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;color:#fff}
+.ph-num.p1{background:var(--cfcu-blue)}
+.ph-num.p2{background:var(--cfcu-green)}
+.ph-num.p3{background:var(--cfcu-gold)}
+.ph-title{font-size:13px;font-weight:700;color:var(--cfcu-navy)}
+.ph-period{font-size:10px;color:var(--gray-500)}
+.ph-items{list-style:none;display:flex;flex-direction:column;gap:5px}
+.ph-item{display:flex;align-items:flex-start;gap:6px;font-size:12px;color:var(--gray-700);line-height:1.5}
+.ph-check{color:var(--cfcu-blue-light);font-size:12px;flex-shrink:0;margin-top:1px}
+.commitment-box{background:var(--cfcu-navy);border-radius:var(--r-lg);padding:1.25rem 1.5rem;color:#fff;text-align:center}
+.cb-quote{font-size:15px;font-style:italic;color:rgba(255,255,255,.9);line-height:1.7;margin-bottom:.75rem}
+.cb-sig{font-size:13px;color:var(--cfcu-gold);font-weight:600}
+
+/* ── SLIDE 9: WHY CFCU ── */
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.5rem}
+.why-card{background:var(--white);border:1px solid var(--gray-100);border-radius:var(--r);padding:1.1rem 1.25rem}
+.wc-icon{font-size:24px;margin-bottom:.5rem}
+.wc-title{font-size:13px;font-weight:700;color:var(--cfcu-navy);margin-bottom:.4rem}
+.wc-body{font-size:12px;color:var(--gray-500);line-height:1.65}
+.align-strip{background:var(--cfcu-blue-pale);border-radius:var(--r-lg);padding:1.25rem;
+  display:flex;align-items:center;gap:1.5rem}
+.align-avatar{width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,#0054A4,#198FCB);
+  display:flex;align-items:center;justify-content:center;font-size:26px;color:#fff;flex-shrink:0}
+.align-text{font-size:13px;color:var(--gray-700);line-height:1.7}
+.align-text strong{color:var(--cfcu-navy)}
+
+/* ── SLIDE 10: CLOSE ── */
+.close-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:3rem 4rem 5rem;text-align:center;position:relative}
+.close-avatar{width:90px;height:90px;border-radius:50%;background:rgba(255,255,255,.15);
+  display:flex;align-items:center;justify-content:center;font-size:36px;margin-bottom:1.5rem}
+.close-title{font-size:38px;font-weight:800;color:#fff;margin-bottom:.75rem}
+.close-sub{font-size:16px;color:rgba(255,255,255,.75);max-width:520px;line-height:1.7;margin-bottom:2rem}
+.contact-row{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem}
+.contact-item{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  color:#fff;padding:10px 20px;border-radius:var(--r);font-size:13px;display:flex;align-items:center;gap:8px}
+.cfcu-vision{background:rgba(255,255,255,.08);border-radius:var(--r-lg);padding:1.25rem 1.75rem;
+  font-size:14px;color:rgba(255,255,255,.85);font-style:italic;line-height:1.7;max-width:580px;border:1px solid rgba(255,255,255,.15)}
+
+/* MISC */
+.section-divider{height:1px;background:var(--gray-100);margin:1.25rem 0}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;
+  padding:3px 10px;border-radius:99px}
+.badge-blue{background:var(--cfcu-blue-pale);color:var(--cfcu-blue)}
+.badge-green{background:var(--cfcu-green-pale);color:var(--cfcu-green)}
+.badge-gold{background:var(--cfcu-gold-pale);color:#7B4F0A}
+.flex-row{display:flex;gap:1rem;align-items:flex-start}
+.w-half{flex:1}
+</style>
+</head>
+<body>
+<div class="pres" id="pres">
+
+<!-- ══════════════════════════════ SLIDE 1: HERO ══════════════════════════════ -->
+<div class="slide active bg-blue" id="slide-0">
+  <div class="hero-wrap">
+    <div class="hero-logo-bar">
+      <div class="cfcu-mark">
+        <div class="cfcu-icon">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="8" fill="#0054A4"/>
+            <path d="M8 20C8 13.373 13.373 8 20 8C23.5 8 26.65 9.45 28.9 11.8L25.4 15.1C23.95 13.55 21.9 12.6 20 12.6C15.92 12.6 12.6 15.92 12.6 20C12.6 24.08 15.92 27.4 20 27.4C22 27.4 23.8 26.6 25.2 25.3L28.7 28.6C26.45 30.8 23.38 32 20 32C13.373 32 8 26.627 8 20Z" fill="white"/>
+            <path d="M24 20C24 22.21 22.21 24 20 24C17.79 24 16 22.21 16 20C16 17.79 17.79 16 20 16C22.21 16 24 17.79 24 20Z" fill="#198FCB"/>
+          </svg>
+        </div>
+        <div class="cfcu-wordmark">
+          <strong>Chevron Federal Credit Union</strong>
+          <span>Founded 1935 · Concord, CA · $5B Assets</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-bg-circle"></div>
+    <div class="hero-bg-circle2"></div>
+    <div style="position:relative">
+      <div class="hero-avatar-ring" style="position:absolute;top:-8px;left:-8px"></div>
+      <div class="hero-avatar">NR</div>
+    </div>
+    <div class="hero-tag">Candidate Presentation · June 2026</div>
+    <div class="hero-name">Naya Roquemore</div>
+    <div class="hero-role">AVP, Member Experience</div>
+    <div class="hero-divider"></div>
+    <div class="hero-company">Chevron Federal Credit Union · Req. AVPME001823</div>
+    <div class="hero-chips">
+      <span class="hero-chip">5+ Years CX Leadership</span>
+      <span class="hero-chip">Survey Governance</span>
+      <span class="hero-chip">Journey Mapping</span>
+      <span class="hero-chip">Detractor Recovery</span>
+      <span class="hero-chip">Executive Reporting</span>
+      <span class="hero-chip">CDLP Certified</span>
+    </div>
+    <div class="hero-date">Presented to: Chevron FCU Hiring Team · June 16, 2026</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ SLIDE 2: ABOUT CFCU ══════════════════════════════ -->
+<div class="slide bg-light" id="slide-1">
+  <div class="content-pad">
+    <div class="slide-eyebrow">I did my homework</div>
+    <div class="slide-title">About Chevron Federal Credit Union</div>
+    <div class="slide-sub">Founded in 1935, CFCU is one of the top credit unions in the country — member-owned, not-for-profit, and built around the principle that financial wellness matters more than profit.</div>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-n">$5B</div><div class="stat-l">Assets under management</div></div>
+      <div class="stat-box"><div class="stat-n">135K+</div><div class="stat-l">Members served worldwide</div></div>
+      <div class="stat-box"><div class="stat-n">91</div><div class="stat-l">Years in operation (est. 1935)</div></div>
+      <div class="stat-box"><div class="stat-n">Top 1%</div><div class="stat-l">Of all U.S. credit unions</div></div>
+    </div>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-card-title">Mission</div>
+        <div class="info-card-body">Fueled by passion for members' success, CFCU guides members to achieve financial goals throughout every stage of their lives — serving Chevron, Bechtel, and select sponsor communities.</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-title">Vision</div>
+        <div class="info-card-body">"We will be the premier and most trusted financial services partner for our members and the sponsor communities we serve."</div>
+        <div class="tag-row"><span class="tag">Not-for-profit</span><span class="tag">Member-first</span><span class="tag">NCUA insured</span></div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-title">Services & Products</div>
+        <div class="info-card-body">Member checking & savings, home mortgages, auto loans, personal loans, credit cards, IRAs, HSAs, MarketEdge Money Market, Video Banking, and mobile-first digital banking via Zelle® integration.</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-title">8 Core Competencies</div>
+        <div class="info-card-body">Growth Mindset · Diversity & Inclusion · Communication · Change Ready Leadership · Responsibility · Problem Solving · Tech & Data Savvy · CU Business Acumen</div>
+        <div class="tag-row"><span class="tag-green tag">7 states</span><span class="tag-green tag">85K+ ATMs</span><span class="tag-green tag">CO-OP Network</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ SLIDE 3: 2025 STRATEGIC HIGHLIGHTS ══════════════════════════════ -->
+<div class="slide bg-light" id="slide-2">
+  <div class="content-pad">
+    <div class="slide-eyebrow">2025 Annual Report — Key Takeaways</div>
+    <div class="slide-title">Where CFCU Is Headed</div>
+    <div class="slide-sub">From the 2025 Annual Report signed by Board Chair Alan Wong and President & CEO Jon Berlin — understanding CFCU's strategic direction helped me see exactly where the AVP role fits.</div>
+    <div class="highlight-strip">
+      <div class="hs-item"><div class="hs-num">5.5%</div><div class="hs-lbl">Deposit growth ($230M)</div></div>
+      <div class="hs-item"><div class="hs-num">12.2%</div><div class="hs-lbl">Capital ratio (strong)</div></div>
+      <div class="hs-item"><div class="hs-num">Record</div><div class="hs-lbl">Branch, Call Center & Lending CSAT</div></div>
+    </div>
+    <div class="annual-quote">"Our commitment to listening to members and continuously improving your experience remained a top priority." — Jon Berlin, President & CEO, 2025 Annual Report</div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-icon">🚀</div>
+        <div class="tl-body"><div class="tl-title">New Account Opening Platform</div><div class="tl-text">Streamlined onboarding to reduce friction across all service channels — directly what the AVP role owns.</div></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-icon">🔐</div>
+        <div class="tl-body"><div class="tl-title">Biometric Authentication Rollout</div><div class="tl-text">Strengthened security while redesigning member workflows for greater ease — a journey mapping priority.</div></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-icon">📊</div>
+        <div class="tl-body"><div class="tl-title">MyCreditScore & More (Digital Banking)</div><div class="tl-text">New member-facing financial insights module — expanding digital member experience touchpoints.</div></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-icon">🕐</div>
+        <div class="tl-body"><div class="tl-title">Enhanced After-Hours Service</div><div class="tl-text">Extended support beyond traditional business hours, signaling a commitment to multi-channel consistency.</div></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-icon">🏦</div>
+        <div class="tl-body"><div class="tl-title">New Brownsville, TX Branch</div><div class="tl-text">Opened to support Bechtel community — reinforcing CFCU's sponsor-community model and geographic growth.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ SLIDE 4: THE CHALLENGE ══════════════════════════════ -->
+<div class="slide bg-light" id="slide-3">
+  <div class="content-pad">
+    <div class="slide-eyebrow">Understanding the Role</div>
+    <div class="slide-title">The Member Experience Challenge</div>
+    <div class="slide-sub">Based on the JD and CFCU's 2025 strategic priorities, here is what I understand about the environment the AVP walks into — and why this role matters right now.</div>
+    <div class="challenge-grid">
+      <div class="challenge-card red">
+        <div class="cc-icon">📞</div>
+        <div class="cc-title">Multi-Channel Friction</div>
+        <div class="cc-body">Members interact across voice, chat, digital, and branch. Each touchpoint has its own standards — the AVP is the connective tissue ensuring consistency at every point.</div>
+      </div>
+      <div class="challenge-card blue">
+        <div class="cc-icon">📊</div>
+        <div class="cc-title">Feedback That Sits Unused</div>
+        <div class="cc-body">Survey data only creates value when it flows into action. Enterprise survey governance ensures VoM insights reach decision-makers and drive measurable improvement.</div>
+      </div>
+      <div class="challenge-card gold">
+        <div class="cc-icon">🔁</div>
+        <div class="cc-title">Stalled Action Items</div>
+        <div class="cc-body">Cross-functional improvement efforts stall without follow-up discipline. The AVP leads the Member Experience Committee and holds departments accountable to SLA commitments.</div>
+      </div>
+      <div class="challenge-card green">
+        <div class="cc-icon">💚</div>
+        <div class="cc-title">Loyalty & Retention at Stake</div>
+        <div class="cc-body">CFCU achieved record satisfaction in 2025 — the AVP's job is to sustain and elevate that, turning detractors into promoters and improving ease of doing business.</div>
+      </div>
+    </div>
+    <div class="avp-role-box">
+      <div class="avp-role-title">What the AVP, Member Experience Owns — Directly From the JD</div>
+      <div class="avp-duties">
+        <div class="avp-duty"><div class="avp-dot"></div>Enterprise survey governance & vendor relationships</div>
+        <div class="avp-duty"><div class="avp-dot"></div>Member journey friction diagnosis & resolution</div>
+        <div class="avp-duty"><div class="avp-dot"></div>Service-level expectations across all departments</div>
+        <div class="avp-duty"><div class="avp-dot"></div>Cross-functional Member Experience Committee</div>
+        <div class="avp-duty"><div class="avp-dot"></div>Detractor recovery & follow-up discipline</div>
+        <div class="avp-duty"><div class="avp-dot"></div>Executive reporting on MX trends & metrics</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ SLIDE 5: MY JOURNEY ══════════════════════════════ -->
+<div class="slide bg-light" id="slide-4">
+  <div class="content-pad">
+    <div class="slide-eyebrow">My Background</div>
+    <div class="slide-title">5+ Years Building Member Experiences</div>
+    <div class="avatar-section">
+      <div class="big-avatar">NR</div>
+      <div class="avatar-speech">I've spent 5+ years at the intersection of member experience, service quality, and cross-functional improvement. Every role I've held has been about one thing: making it easier for people to get what they need, faster, and with less friction. That's the core of what the AVP role at CFCU asks for — and it's exactly what gets me out of bed every morning.</div>
+    </div>
+    <div class="exp-timeline">
+      <div class="exp-item">
+        <div class="exp-circle">1</div>
+        <div style="position:absolute;left:17px;top:38px;bottom:0;width:2px;background:var(--gray-100);z-index:0"></div>
+        <div class="exp-content">
+          <div class="exp-title">Member Experience & Enablement Lead</div>
+          <div class="exp-co">Evolve</div>
+          <div class="exp-date">11/2021 – 03/2026</div>
+          <div class="exp-bullets">Owned survey governance · Mapped member journeys · Led detractor recovery · Cut proficiency time 15% · Executive CSAT reporting</div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-circle">2</div>
+        <div style="position:absolute;left:17px;top:38px;bottom:0;width:2px;background:var(--gray-100);z-index:0"></div>
+        <div class="exp-content">
+          <div class="exp-title">Member Experience & Quality Coordinator</div>
+          <div class="exp-co">Molina Healthcare</div>
+          <div class="exp-date">02/2021 – 05/2022</div>
+          <div class="exp-bullets">Diagnosed process breakdowns · Mapped member-facing workflows · Reduced ramp time 20% · QA audit readiness</div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-circle">3</div>
+        <div style="position:absolute;left:17px;top:38px;bottom:0;width:2px;background:var(--gray-100);z-index:0"></div>
+        <div class="exp-content">
+          <div class="exp-title">Member Experience Training Specialist</div>
+          <div class="exp-co">GEICO</div>
+          <div class="exp-date">04/2019 – 11/2021</div>
+          <div class="exp-bullets">SLA discipline · Cross-functional accountability · Raised resolution rates 18% · Synthesized performance data into leadership insights</div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-circle">4</div>
+        <div class="exp-content">
+          <div class="exp-title">Member Experience & Learning Manager (Internship)</div>
+          <div class="exp-co">Houston Medical Center</div>
+          <div class="exp-date">01/2025 – 12/2025</div>
+          <div class="exp-bullets">200+ staff onboarded · Cut delinquency 25% · Executive dashboards · Cross-functional project delivery</div>
+        </div>
+      </div>
+    </div>
+    <div class="cert-row">
+      <span class="cert">CX Foundations Certified</span>
+      <span class="cert">CX Journey Mapping Certified</span>
+      <span class="cert">CDLP — Digital Learning Institute</span>
+      <span class="cert">Lean Six Sigma Foundations</span>
+      <span class="cert">B.S. Business Administration (Oct 2026)</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ SLIDE 6: VALUE I BRING ══════════════════════════════ -->
+<div class="slide bg-light" id="slide-5">
+  <div class="content-pad">
+    <div class="slide-eyebrow">What I Bring to CFCU</div>
+    <div class="slide-title">The Value I Add — Day One</div>
+    <div class="slide-sub">Every gap the JD describes, I've worked in. Here's where my background maps directly to CFCU's member experience priorities.</div>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="vc-icon">📋</div>
+        <div class="vc-title">Survey Governance, Built</div>
+        <div class="vc-body">At Evolve, I owned post-interaction survey workflows, consolidated transactional and relational feedback, and prepared executive updates tracking action item progress.</div>
+        <div class="vc-metric">Gap closed ✓</div>
+      </div>
+      <div class="value-card">
+        <div class="vc-icon">🗺️</div>
+        <div class="vc-title">Journey Mapping, Done</div>
+        <div class="vc-body">Mapped member journeys across voice, chat, and email at Evolve. Identified friction touchpoints at Molina through structured needs assessments — 20% ramp reduction.</div>
+        <div class="vc-metric">Gap closed ✓</div>
+      </div>
+      <div class="value-card">
+        <div class="vc-icon">🔄</div>
+        <div class="vc-title">Detractor Recovery, Led</div>
+        <div class="vc-body">Led closed-loop detractor recovery at Evolve — flagging at-risk touchpoints, coordinating corrective actions, and tracking resolution to produce measurable CSAT improvement.</div>
+        <div class="vc-metric">Gap closed ✓</div>
+      </div>
+      <div class="value-card">
+        <div class="vc-icon">📊</div>
+        <div class="vc-title">Executive Reporting, Ready</div>
+        <div class="vc-body">Built executive-facing dashboards at Houston Medical Center for 200+ staff. Prepared regular leadership updates at Evolve that tracked action items and escalated stalled efforts.</div>
+        <div class="vc-metric">+15% proficiency</div>
+      </div>
+      <div class="value-card">
+        <div class="vc-icon">🤝</div>
+        <div class="vc-title">Influence Without Authority</div>
+        <div class="vc-body">Drove accountability across Operations, QA, Lending, and Support teams at GEICO and Evolve — without direct authority over any of them. This is my operating model.</div>
+        <div class="vc-metric">+18% resolution rate</div>
+      </div>
+      <div class="value-card">
+        <div class="vc-icon">📈</div>
+        <div class="vc-title">SLA Discipline, Enforced</div>
+        <div class="vc-body">Reinforced service-level expectations and SLA discipline through live facilitation and cross-functional coordination at GEICO and Molina, reducing inconsistency across frontline teams.</div>
+        <div class="vc-metric">-25% delinquency</div>
+      </div>
+    </div>
+    <div class="gap-map">
+      <div class="gm-title">JD Requirement Coverage — My Alignment</div>
+      <div class="gm-row"><span class="gm-label">Survey Governance & VoM Feedback</span><div class="gm-bar-track"><div class="gm-bar-fill" style="width:92%;background:#4CAF50"></div></div><span class="gm-pct">92%</span></div>
+      <div class="gm-row"><span class="gm-label">Member Journey Friction Diagnosis</span><div class="gm-bar-track"><div class="gm-bar-fill" style="width:90%;background:#4CAF50"></div></div><span class="gm-pct">90%</span></div>
+      <div class="gm-row"><span class="gm-label">Cross-Functional Leadership</span><div class="gm-bar-track"><div class="gm-bar-fill" style="width:88%;background:#4CAF50"></div></div><span class="gm-pct">88%</span></div>
+      <div class="gm-row"><span class="gm-label">Executive Reporting & Stakeholder Influence</span><div class="gm-bar-track"><div class="gm-bar-fill" style="width:87%;background:#4CAF50"></div></div><span class="gm-pct">87%</span></div>
+      <div class="gm-row"><span class="gm-label">Detractor Recovery & Follow-Up Discipline</span><div class="gm-bar-track"><div class="gm-bar-fill" style="width:90%;background:#4CAF50"></div></div><span class="gm-pct">90%</span></div>
+      <div class="gm-row"><span class="gm-label">CX Credentials (CX Foundations + Journey Mapping)</span><div class="gm-bar-track"><div class="gm-bar-fill" style="width:75%;background:#FFB74D"></div></div><span class="gm-pct">75%</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ SLIDE 7: CFCU TRIVIA GAME ══════════════════════════════ -->
+<div class="slide bg-white" id="slide-6">
+  <div class="game-wrap">
+    <div class="game-header">
+      <div>
+        <div class="slide-eyebrow" style="color:var(--cfcu-blue-light)">Engagement Game</div>
+        <div style="font-size:22px;font-weight:800;color:var(--cfcu-navy)">CFCU Knowledge Challenge</div>
+        <div style="font-size:13px;color:var(--gray-500)">How well do you think I know Chevron Federal Credit Union?</div>
+      </div>
+      <div class="game-score-wrap">
+        <span style="font-size:13px;color:var(--gray-500)">Score:</span>
+        <div class="game-score" id="gameScore">0</div>
+        <span style="font-size:13px;color:var(--gray-500)" id="gameQCount">Q 1/6</span>
+      </div>
+    </div>
+    <div class="game-progress"><div class="game-progress-fill" id="gameProgress" style="width:0%"></div></div>
+    <div id="gameBody">
+      <div class="game-q" id="gameQ">Loading question...</div>
+      <div class="game-choices" id="gameChoices"></div>
+      <div class="game-feedback" id="gameFeedback"></div>
+      <div style="margin-top:1rem;text-align:right">
+        <button class="nav-btn" id="gameNext" onclick="nextQuestion()" style="display:none;background:var(--cfcu-blue);color:#fff;border-color:var(--cfcu-blue)">Next Question →</button>
+      </div>
+    </div>
+    <div id="gameComplete" style="display:none" class="game-complete">
+      <div class="game-trophy">🏆</div>
+      <div class="game-score-final" id="gameFinalScore"></div>
+      <div style="font-size:16px;color:var(--gray-500);margin:.5rem 0 1rem">out of 6 correct</div>
+      <div style="font-size:14px;color:var(--gray-700);max-width:460px;margin:0 auto 1.5rem;line-height:1.7" id="gameFinalMsg"></div>
+      <button class="nav-btn" onclick="resetGame()" style="background:var(--cfcu-blue);color:#fff;border-color:var(--cfcu-blue)">Play Again ↺</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ SLIDE 8: 90-DAY PLAN ══════════════════════════════ -->
+<div class="slide bg-light" id="slide-7">
+  <div class="content-pad">
+    <div class="slide-eyebrow">If Selected</div>
+    <div class="slide-title">My 90-Day Member Experience Plan</div>
+    <div class="slide-sub">This is not generic — it is built around CFCU's 2025 priorities, the AVP JD duties, and the member experience opportunities the annual report identifies.</div>
+    <div class="plan-grid">
+      <div class="plan-phase p1">
+        <div class="ph-header">
+          <div class="ph-num p1">1</div>
+          <div><div class="ph-title">Days 1–30: Listen & Learn</div><div class="ph-period">Foundations</div></div>
+        </div>
+        <ul class="ph-items">
+          <li class="ph-item"><span class="ph-check">→</span>Shadow all member-facing channels: voice, chat, digital, branch</li>
+          <li class="ph-item"><span class="ph-check">→</span>Review existing survey governance setup, vendor relationships, and current SLA tracking</li>
+          <li class="ph-item"><span class="ph-check">→</span>Meet with all department heads the AVP partners with</li>
+          <li class="ph-item"><span class="ph-check">→</span>Review Member Experience Committee history and open action items</li>
+          <li class="ph-item"><span class="ph-check">→</span>Analyze last 6 months of VoM data and detractor trends</li>
+          <li class="ph-item"><span class="ph-check">→</span>Attend Jon Berlin's leadership forums and absorb CFCU's strategic lens</li>
+        </ul>
+      </div>
+      <div class="plan-phase p2">
+        <div class="ph-header">
+          <div class="ph-num p2">2</div>
+          <div><div class="ph-title">Days 31–60: Diagnose & Plan</div><div class="ph-period">Strategy</div></div>
+        </div>
+        <ul class="ph-items">
+          <li class="ph-item"><span class="ph-check">→</span>Map the full member journey across all channels, flag top 3 friction points</li>
+          <li class="ph-item"><span class="ph-check">→</span>Audit survey governance standards and present gap analysis to leadership</li>
+          <li class="ph-item"><span class="ph-check">→</span>Reset SLA expectations with each department; build accountability dashboard</li>
+          <li class="ph-item"><span class="ph-check">→</span>Launch a detractor recovery protocol with documented follow-up discipline framework</li>
+          <li class="ph-item"><span class="ph-check">→</span>Deliver first executive member experience brief with trend data and priorities</li>
+          <li class="ph-item"><span class="ph-check">→</span>Establish Member Experience Committee cadence and meeting structure</li>
+        </ul>
+      </div>
+      <div class="plan-phase p3">
+        <div class="ph-header">
+          <div class="ph-num p3">3</div>
+          <div><div class="ph-title">Days 61–90: Measure & Improve</div><div class="ph-period">Impact</div></div>
+        </div>
+        <ul class="ph-items">
+          <li class="ph-item"><span class="ph-check">→</span>Deliver second executive report with measurable improvement vs. baseline</li>
+          <li class="ph-item"><span class="ph-check">→</span>Present friction point remediation recommendations to department heads</li>
+          <li class="ph-item"><span class="ph-check">→</span>Run first closed-loop detractor recovery cycle end-to-end</li>
+          <li class="ph-item"><span class="ph-check">→</span>Identify one quick-win process improvement that improves ease of doing business</li>
+          <li class="ph-item"><span class="ph-check">→</span>Align member experience strategy to CFCU's 2026 digital growth priorities</li>
+          <li class="ph-item"><span class="ph-check">→</span>Present a 6-month MX roadmap to executive leadership team</li>
+        </ul>
+      </div>
+    </div>
+    <div class="commitment-box">
+      <div class="cb-quote">"My goal in the first 90 days is simple: understand CFCU's members as well as the people who have served them for years, then use that understanding to make every touchpoint better — consistently, measurably, and sustainably."</div>
+      <div class="cb-sig">— Naya Roquemore, AVP, Member Experience Candidate</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ SLIDE 9: WHY CFCU ══════════════════════════════ -->
+<div class="slide bg-light" id="slide-8">
+  <div class="content-pad">
+    <div class="slide-eyebrow">Why This Role, Why CFCU</div>
+    <div class="slide-title">Mission Alignment Is Not a Talking Point for Me</div>
+    <div class="slide-sub">Here is why CFCU specifically — not just any member experience role — is where I want to build the next chapter of my career.</div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="wc-icon">💚</div>
+        <div class="wc-title">Mission Over Margin</div>
+        <div class="wc-body">CFCU exists to improve members' financial lives — not to sell products. I've spent my career in mission-aligned environments: healthcare, insurance, and service — all industries where the human outcome matters more than the transaction. That orientation is in my DNA.</div>
+      </div>
+      <div class="why-card">
+        <div class="wc-icon">🏗️</div>
+        <div class="wc-title">The AVP Role Is a Builder Role</div>
+        <div class="wc-body">Based on the JD and 2025 Annual Report, CFCU is actively investing in member experience infrastructure — new platforms, digital tools, and service channels. The AVP is being hired to own the enterprise experience layer. I want to build that, not maintain it.</div>
+      </div>
+      <div class="why-card">
+        <div class="wc-icon">📈</div>
+        <div class="wc-title">Record CSAT in 2025 — Raise the Bar in 2026</div>
+        <div class="wc-body">CFCU hit record satisfaction scores in 2025. That is a remarkable baseline — and a real challenge. Sustaining and improving record-level performance requires the kind of cross-functional discipline and VoM-driven strategy this role is designed to provide.</div>
+      </div>
+      <div class="why-card">
+        <div class="wc-icon">🌍</div>
+        <div class="wc-title">135,000 Members Worldwide</div>
+        <div class="wc-body">The scale of CFCU's member base — spanning 7 states, global expat services, and multiple sponsor communities — means the impact of improving even one touchpoint resonates across tens of thousands of real people. That kind of scale is motivating.</div>
+      </div>
+    </div>
+    <div class="align-strip">
+      <div class="align-avatar">NR</div>
+      <div class="align-text">CFCU's tagline is <strong>"It's better when you belong."</strong> That is exactly the feeling I want every member to have after every interaction — that they were heard, helped, and that their experience improved because someone at CFCU was paying attention. <strong>That is the job. And that is what I am built to do.</strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ SLIDE 10: CLOSE ══════════════════════════════ -->
+<div class="slide bg-blue" id="slide-9">
+  <div class="close-wrap">
+    <div class="hero-bg-circle"></div>
+    <div class="hero-bg-circle2"></div>
+    <div class="close-avatar">🤝</div>
+    <div class="close-title" style="color:#fff">Let's Build Something Great for CFCU Members</div>
+    <div class="close-sub">I built this presentation specifically for Chevron Federal Credit Union because I wanted to show — not just tell — that I understand your mission, your members, and what this role requires. I am ready to close the loop on Day One.</div>
+    <div class="contact-row">
+      <div class="contact-item">✉️ nayaroquemore@gmail.com</div>
+      <div class="contact-item">📞 478-302-6658</div>
+      <div class="contact-item">💻 github.com/naya022</div>
+    </div>
+    <div class="cfcu-vision">"We will be the premier and most trusted financial services partner for our members and the sponsor communities we serve." — CFCU Vision Statement<br><br>I want to help earn that trust. Every day. One member journey at a time.</div>
+    <div style="margin-top:1.5rem;color:rgba(255,255,255,.4);font-size:11px">Req. AVPME001823 · AVP, Member Experience · Chevron Federal Credit Union · Presented June 2026</div>
+  </div>
+</div>
+
+</div><!-- /pres -->
+
+<!-- BOTTOM NAV -->
+<div class="nav">
+  <button class="nav-btn" id="btnPrev" onclick="changeSlide(-1)" disabled>← Previous</button>
+  <div style="text-align:center">
+    <div class="slide-counter">
+      <span id="slideLabel">Slide 1 of 10</span>
+    </div>
+    <div class="slide-dots" id="dotContainer"></div>
+  </div>
+  <button class="nav-btn" id="btnNext" onclick="changeSlide(1)">Next →</button>
+</div>
+
+<script>
+const SLIDES = [
+  'Welcome',
+  'About CFCU',
+  '2025 Highlights',
+  'The Challenge',
+  'My Journey',
+  'Value I Bring',
+  'CFCU Trivia',
+  '90-Day Plan',
+  'Why CFCU',
+  'Let\'s Connect'
+];
+const TOTAL = SLIDES.length;
+let current = 0;
+
+const questions = [
+  {
+    q: "In what year was Chevron Federal Credit Union founded?",
+    choices: ["1925","1935","1942","1955"],
+    answer: 1,
+    feedback: "Correct! CFCU was founded in 1935 and has been serving members for over 91 years — making it one of the most established credit unions in the country."
+  },
+  {
+    q: "How many members does Chevron Federal Credit Union serve worldwide?",
+    choices: ["Approximately 50,000","Around 85,000","More than 135,000","Over 200,000"],
+    answer: 2,
+    feedback: "Right! CFCU serves more than 135,000 members worldwide — spanning 7 states and including global expatriate services for Chevron and Bechtel employees."
+  },
+  {
+    q: "What was CFCU's deposit growth rate in 2025, according to the Annual Report?",
+    choices: ["2.1%","3.8%","5.5%","7.2%"],
+    answer: 2,
+    feedback: "5.5% — representing $230 million in new deposits. This reflects strong member trust and engagement across CFCU's savings products."
+  },
+  {
+    q: "What is CFCU's vision statement?",
+    choices: [
+      "To be the largest credit union in California",
+      "We will be the premier and most trusted financial services partner for our members",
+      "Putting people first since 1935",
+      "Financial wellness for all"
+    ],
+    answer: 1,
+    feedback: "Exactly right. The vision is 'We will be the premier and most trusted financial services partner for our members and the sponsor communities we serve.' Every member experience decision flows from this."
+  },
+  {
+    q: "Which new digital banking feature did CFCU launch in 2025 to help members manage their credit?",
+    choices: ["AutoPay Plus","MyCreditScore & More","SmartSaver Dashboard","MoneyPath Analytics"],
+    answer: 1,
+    feedback: "MyCreditScore & More — a new module within CFCU's Digital Banking platform that provides credit scores, personalized recommendations, and financial insights to members."
+  },
+  {
+    q: "What is CFCU's capital ratio as of year-end 2025, and what does it indicate?",
+    choices: ["8.4% — meets regulatory minimum","10.1% — adequate strength","12.2% — strong financial soundness","15.5% — excess reserves"],
+    answer: 2,
+    feedback: "12.2% — indicating continued financial strength and soundness, as stated in the 2025 Annual Report by President & CEO Jon Berlin and Board Chair Alan Wong."
+  }
+];
+
+let qIndex = 0, gameScore = 0, answered = false;
+
+function renderQuestion() {
+  const q = questions[qIndex];
+  document.getElementById('gameQ').textContent = q.q;
+  document.getElementById('gameQCount').textContent = `Q ${qIndex+1}/${questions.length}`;
+  document.getElementById('gameProgress').style.width = `${(qIndex/questions.length)*100}%`;
+  document.getElementById('gameFeedback').style.display = 'none';
+  document.getElementById('gameNext').style.display = 'none';
+  answered = false;
+  const c = document.getElementById('gameChoices');
+  c.innerHTML = '';
+  q.choices.forEach((ch, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'game-choice';
+    const letters = ['A','B','C','D'];
+    btn.innerHTML = `<span class="game-choice-letter">${letters[i]}</span>${ch}`;
+    btn.onclick = () => selectAnswer(i, btn);
+    c.appendChild(btn);
+  });
+}
+
+function selectAnswer(i, btn) {
+  if (answered) return;
+  answered = true;
+  const q = questions[qIndex];
+  const allBtns = document.querySelectorAll('.game-choice');
+  allBtns.forEach(b => b.classList.add('disabled'));
+  const fb = document.getElementById('gameFeedback');
+  if (i === q.answer) {
+    btn.classList.add('correct');
+    gameScore++;
+    document.getElementById('gameScore').textContent = gameScore;
+    fb.style.background = 'var(--cfcu-green-pale)';
+    fb.style.borderLeft = '3px solid var(--cfcu-green-light)';
+    fb.style.color = 'var(--cfcu-green)';
+  } else {
+    btn.classList.add('wrong');
+    allBtns[q.answer].classList.add('correct');
+    fb.style.background = 'var(--cfcu-blue-pale)';
+    fb.style.borderLeft = '3px solid var(--cfcu-blue-light)';
+    fb.style.color = 'var(--cfcu-navy)';
+  }
+  fb.style.display = 'block';
+  fb.innerHTML = `<strong>${i === q.answer ? '✓ Correct!' : '✗ Not quite —'}</strong> ${q.feedback}`;
+  document.getElementById('gameNext').style.display = 'inline-block';
+}
+
+function nextQuestion() {
+  qIndex++;
+  if (qIndex >= questions.length) {
+    document.getElementById('gameBody').style.display = 'none';
+    document.getElementById('gameComplete').style.display = 'block';
+    document.getElementById('gameFinalScore').textContent = gameScore;
+    const pct = Math.round((gameScore/questions.length)*100);
+    const msgs = {
+      100: "Perfect score! You clearly know CFCU inside and out. That's exactly the kind of preparation I brought to this application.",
+      83: "Outstanding! Strong knowledge of CFCU's mission, strategy, and 2025 performance.",
+      67: "Good work! A solid understanding of CFCU's fundamentals and recent strategic moves.",
+      50: "A good start. There's always more to learn — and that goes for all of us.",
+      0: "Every question is a learning opportunity. Let's go again!"
+    };
+    const keys = Object.keys(msgs).map(Number).sort((a,b)=>b-a);
+    let msg = msgs[0];
+    for (const k of keys) { if (pct >= k) { msg = msgs[k]; break; } }
+    document.getElementById('gameFinalMsg').textContent = msg;
+    document.getElementById('gameProgress').style.width = '100%';
+  } else {
+    renderQuestion();
+  }
+}
+
+function resetGame() {
+  qIndex = 0; gameScore = 0; answered = false;
+  document.getElementById('gameScore').textContent = 0;
+  document.getElementById('gameBody').style.display = 'block';
+  document.getElementById('gameComplete').style.display = 'none';
+  renderQuestion();
+}
+
+function changeSlide(dir) {
+  document.getElementById('slide-'+current).classList.remove('active');
+  current = Math.max(0, Math.min(TOTAL-1, current+dir));
+  document.getElementById('slide-'+current).classList.add('active');
+  if (current === 6 && qIndex === 0) renderQuestion();
+  updateNav();
+}
+
+function goToSlide(n) {
+  document.getElementById('slide-'+current).classList.remove('active');
+  current = n;
+  document.getElementById('slide-'+current).classList.add('active');
+  if (current === 6 && qIndex === 0) renderQuestion();
+  updateNav();
+}
+
+function updateNav() {
+  document.getElementById('btnPrev').disabled = current === 0;
+  document.getElementById('btnNext').disabled = current === TOTAL-1;
+  document.getElementById('slideLabel').textContent = `${SLIDES[current]} · ${current+1} of ${TOTAL}`;
+  const dc = document.getElementById('dotContainer');
+  dc.innerHTML = '';
+  for (let i=0;i<TOTAL;i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i===current?' active':i<current?' done':'');
+    d.onclick = ()=>goToSlide(i);
+    dc.appendChild(d);
+  }
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key==='ArrowRight'||e.key===' ') changeSlide(1);
+  if (e.key==='ArrowLeft') changeSlide(-1);
+});
+
+updateNav();
+</script>
+</body>
+</html>
