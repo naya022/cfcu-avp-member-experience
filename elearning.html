@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Closing the Loop | Chevron FCU Member Experience</title>
+<style>
+  :root {
+    --navy: #0B2545;
+    --teal: #1D7A8C;
+    --teal-light: #E8F4F7;
+    --teal-mid: #2BA0B8;
+    --gold: #C8922A;
+    --gold-light: #FBF3E4;
+    --red: #C0392B;
+    --red-light: #FDEDEC;
+    --green: #1A7A4A;
+    --green-light: #E8F5EE;
+    --gray-50: #F7F8FA;
+    --gray-100: #EAECF0;
+    --gray-300: #B0B8C4;
+    --gray-500: #6B7685;
+    --gray-800: #1E2530;
+    --white: #FFFFFF;
+    --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --radius: 10px;
+    --radius-lg: 16px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font);
+    background: var(--gray-50);
+    color: var(--gray-800);
+    min-height: 100vh;
+  }
+
+  /* SHELL */
+  .shell { display: flex; flex-direction: column; min-height: 100vh; max-width: 960px; margin: 0 auto; }
+
+  /* TOPBAR */
+  .topbar {
+    background: var(--navy);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    flex-shrink: 0;
+  }
+  .topbar-brand { display: flex; align-items: center; gap: 10px; }
+  .topbar-logo {
+    width: 32px; height: 32px; border-radius: 6px;
+    background: var(--teal-mid); display: flex; align-items: center;
+    justify-content: center; font-size: 14px; font-weight: 700; color: #fff;
+  }
+  .topbar-name { font-size: 13px; font-weight: 600; color: #fff; letter-spacing: 0.3px; }
+  .topbar-sub { font-size: 11px; color: var(--gray-300); }
+  .topbar-right { display: flex; align-items: center; gap: 16px; }
+  .progress-wrap { display: flex; align-items: center; gap: 8px; }
+  .progress-track { width: 140px; height: 5px; background: rgba(255,255,255,0.2); border-radius: 99px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--teal-mid); border-radius: 99px; transition: width 0.4s ease; }
+  .progress-label { font-size: 11px; color: var(--gray-300); white-space: nowrap; }
+  .badge-xp { background: var(--gold); color: #fff; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 99px; }
+
+  /* SCREEN SYSTEM */
+  .screen { display: none; flex-direction: column; flex: 1; animation: fadeIn 0.3s ease; }
+  .screen.active { display: flex; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* HERO SCREEN */
+  .hero-body {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    justify-content: center; padding: 3rem 2rem; text-align: center;
+  }
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--teal-mid); margin-bottom: 1rem;
+  }
+  .hero-title { font-size: 32px; font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: 1rem; }
+  .hero-title span { color: var(--teal-mid); }
+  .hero-desc { font-size: 15px; color: var(--gray-500); max-width: 540px; line-height: 1.7; margin-bottom: 2rem; }
+  .hero-chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 2.5rem; }
+  .chip {
+    font-size: 12px; padding: 5px 12px; border-radius: 99px;
+    border: 1px solid var(--gray-100); background: var(--white);
+    color: var(--gray-500); display: flex; align-items: center; gap: 5px;
+  }
+  .chip-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal-mid); }
+  .btn-primary {
+    background: var(--navy); color: #fff; border: none; padding: 14px 36px;
+    border-radius: var(--radius); font-size: 15px; font-weight: 600;
+    cursor: pointer; transition: background 0.2s, transform 0.1s;
+  }
+  .btn-primary:hover { background: var(--teal); }
+  .btn-primary:active { transform: scale(0.98); }
+  .hero-meta { margin-top: 1.5rem; font-size: 12px; color: var(--gray-300); }
+
+  /* CONTENT LAYOUT */
+  .content-wrap { flex: 1; display: flex; flex-direction: column; padding: 1.5rem 2rem; gap: 1.25rem; }
+  .screen-header { display: flex; align-items: flex-start; gap: 12px; }
+  .step-badge {
+    width: 36px; height: 36px; border-radius: 50%; background: var(--navy);
+    color: #fff; font-size: 13px; font-weight: 700; display: flex;
+    align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;
+  }
+  .screen-title { font-size: 20px; font-weight: 700; color: var(--navy); }
+  .screen-sub { font-size: 13px; color: var(--gray-500); margin-top: 3px; line-height: 1.5; }
+
+  /* CARDS */
+  .card {
+    background: var(--white); border: 1px solid var(--gray-100);
+    border-radius: var(--radius-lg); padding: 1.25rem 1.5rem;
+  }
+  .card-title {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--gray-500); margin-bottom: 0.75rem;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .card-title-icon { font-size: 14px; }
+
+  /* ALERT CARD */
+  .alert-card {
+    background: var(--red-light); border: 1px solid #F1948A;
+    border-radius: var(--radius); padding: 1rem 1.25rem;
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+  .alert-icon { font-size: 22px; flex-shrink: 0; }
+  .alert-title { font-size: 14px; font-weight: 700; color: var(--red); margin-bottom: 4px; }
+  .alert-body { font-size: 13px; color: #7B241C; line-height: 1.6; }
+
+  /* STAT GRID */
+  .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .stat-card {
+    background: var(--gray-50); border: 1px solid var(--gray-100);
+    border-radius: var(--radius); padding: 1rem; text-align: center;
+  }
+  .stat-num { font-size: 26px; font-weight: 700; }
+  .stat-lbl { font-size: 11px; color: var(--gray-500); margin-top: 3px; }
+  .stat-trend { font-size: 11px; margin-top: 4px; font-weight: 600; }
+  .trend-down { color: var(--red); }
+  .trend-up { color: var(--green); }
+
+  /* JOURNEY MAP */
+  .journey-map { display: flex; align-items: flex-start; gap: 0; overflow-x: auto; padding-bottom: 4px; }
+  .journey-step { flex: 1; min-width: 110px; position: relative; }
+  .journey-step:not(:last-child)::after {
+    content: ''; position: absolute; top: 20px; right: -1px;
+    width: 2px; height: 2px;
+  }
+  .journey-connector {
+    height: 2px; background: var(--gray-100); flex: none; width: 16px;
+    margin-top: 20px; flex-shrink: 0;
+  }
+  .journey-node {
+    border: 2px solid var(--gray-100); border-radius: var(--radius);
+    padding: 0.75rem; background: var(--white); cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    text-align: center; min-height: 90px; display: flex;
+    flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  }
+  .journey-node:hover { border-color: var(--teal-mid); background: var(--teal-light); }
+  .journey-node.flagged { border-color: var(--red); background: var(--red-light); }
+  .journey-node.selected { border-color: var(--navy); background: var(--teal-light); }
+  .journey-node.resolved { border-color: var(--green); background: var(--green-light); }
+  .journey-icon { font-size: 20px; }
+  .journey-label { font-size: 11px; font-weight: 600; color: var(--gray-800); }
+  .journey-channel { font-size: 10px; color: var(--gray-500); }
+  .friction-badge {
+    font-size: 10px; background: var(--red); color: #fff;
+    padding: 2px 6px; border-radius: 99px; margin-top: 2px;
+  }
+
+  /* FEEDBACK TABLE */
+  .feedback-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .feedback-table th {
+    font-size: 11px; font-weight: 600; color: var(--gray-500);
+    text-transform: uppercase; letter-spacing: 0.06em;
+    padding: 8px 10px; border-bottom: 1px solid var(--gray-100);
+    text-align: left;
+  }
+  .feedback-table td { padding: 9px 10px; border-bottom: 1px solid var(--gray-100); vertical-align: top; line-height: 1.4; }
+  .feedback-table tr:last-child td { border-bottom: none; }
+  .score-pill {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    padding: 2px 8px; border-radius: 99px;
+  }
+  .score-low { background: var(--red-light); color: var(--red); }
+  .score-mid { background: var(--gold-light); color: var(--gold); }
+  .score-high { background: var(--green-light); color: var(--green); }
+
+  /* SLA TRACKER */
+  .sla-row {
+    display: flex; align-items: center; gap: 12px; padding: 10px 0;
+    border-bottom: 1px solid var(--gray-100); font-size: 13px;
+  }
+  .sla-row:last-child { border-bottom: none; }
+  .sla-dept { width: 160px; font-weight: 600; color: var(--gray-800); flex-shrink: 0; }
+  .sla-track { flex: 1; height: 8px; background: var(--gray-100); border-radius: 99px; overflow: hidden; }
+  .sla-fill { height: 100%; border-radius: 99px; transition: width 0.6s ease; }
+  .sla-pct { width: 36px; font-size: 12px; text-align: right; color: var(--gray-500); flex-shrink: 0; }
+  .sla-status { width: 70px; flex-shrink: 0; }
+
+  /* CHOICES */
+  .choice-list { display: flex; flex-direction: column; gap: 8px; }
+  .choice-btn {
+    width: 100%; text-align: left; padding: 12px 16px;
+    border: 1.5px solid var(--gray-100); border-radius: var(--radius);
+    background: var(--white); cursor: pointer; font-size: 13px;
+    color: var(--gray-800); line-height: 1.5;
+    transition: border-color 0.2s, background 0.2s;
+    display: flex; align-items: flex-start; gap: 10px;
+  }
+  .choice-btn:hover { border-color: var(--teal-mid); background: var(--teal-light); }
+  .choice-btn.correct { border-color: var(--green); background: var(--green-light); }
+  .choice-btn.incorrect { border-color: var(--red); background: var(--red-light); }
+  .choice-btn.disabled { pointer-events: none; }
+  .choice-letter {
+    width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--gray-300);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: var(--gray-500); flex-shrink: 0;
+  }
+
+  /* EXECUTIVE REPORT BUILDER */
+  .report-section { display: flex; flex-direction: column; gap: 8px; }
+  .report-label { font-size: 12px; font-weight: 600; color: var(--gray-500); }
+  .report-input {
+    width: 100%; border: 1.5px solid var(--gray-100); border-radius: var(--radius);
+    padding: 10px 14px; font-size: 13px; font-family: var(--font);
+    color: var(--gray-800); background: var(--white); resize: vertical; min-height: 70px;
+    transition: border-color 0.2s;
+  }
+  .report-input:focus { outline: none; border-color: var(--teal-mid); }
+  .report-preview {
+    background: var(--navy); border-radius: var(--radius-lg);
+    padding: 1.5rem; color: #fff;
+  }
+  .report-preview-title { font-size: 16px; font-weight: 700; margin-bottom: 1rem; color: var(--teal-mid); }
+  .report-preview-section { margin-bottom: 1rem; }
+  .report-preview-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray-300); margin-bottom: 4px; }
+  .report-preview-body { font-size: 13px; color: #fff; line-height: 1.6; }
+
+  /* NAV */
+  .nav-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2rem; border-top: 1px solid var(--gray-100);
+    background: var(--white); flex-shrink: 0;
+  }
+  .btn-nav {
+    padding: 10px 24px; border-radius: var(--radius); font-size: 14px;
+    font-weight: 600; cursor: pointer; transition: all 0.2s; border: none;
+  }
+  .btn-back { background: var(--gray-50); color: var(--gray-500); border: 1px solid var(--gray-100); }
+  .btn-back:hover { background: var(--gray-100); }
+  .btn-next { background: var(--navy); color: #fff; }
+  .btn-next:hover { background: var(--teal); }
+  .btn-next:disabled { background: var(--gray-300); cursor: not-allowed; }
+  .step-dots { display: flex; gap: 6px; }
+  .step-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gray-100); transition: background 0.3s; }
+  .step-dot.active { background: var(--navy); }
+  .step-dot.done { background: var(--teal-mid); }
+
+  /* FEEDBACK TOAST */
+  .toast {
+    position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+    padding: 10px 20px; border-radius: var(--radius); font-size: 13px;
+    font-weight: 600; color: #fff; z-index: 100; opacity: 0;
+    transition: opacity 0.3s; pointer-events: none; white-space: nowrap;
+  }
+  .toast.show { opacity: 1; }
+  .toast-success { background: var(--green); }
+  .toast-error { background: var(--red); }
+  .toast-info { background: var(--navy); }
+
+  /* COMPLETE SCREEN */
+  .complete-body {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    justify-content: center; padding: 3rem 2rem; text-align: center;
+  }
+  .complete-ring {
+    width: 100px; height: 100px; border-radius: 50%;
+    background: var(--green-light); border: 3px solid var(--green);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 40px; margin-bottom: 1.5rem;
+  }
+  .complete-title { font-size: 26px; font-weight: 700; color: var(--navy); margin-bottom: 0.75rem; }
+  .complete-sub { font-size: 14px; color: var(--gray-500); max-width: 460px; line-height: 1.7; margin-bottom: 2rem; }
+  .complete-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; max-width: 440px; margin-bottom: 2rem; }
+  .complete-stat { background: var(--white); border: 1px solid var(--gray-100); border-radius: var(--radius); padding: 1rem; }
+  .complete-stat-num { font-size: 22px; font-weight: 700; color: var(--navy); }
+  .complete-stat-lbl { font-size: 11px; color: var(--gray-500); margin-top: 2px; }
+
+  .two-col-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .tool-tag {
+    display: inline-flex; align-items: center; gap: 5px; font-size: 11px;
+    background: var(--navy); color: #fff; padding: 3px 10px;
+    border-radius: 99px; margin: 2px;
+  }
+
+  .hidden { display: none !important; }
+  .mt-sm { margin-top: 0.5rem; }
+  .mt-md { margin-top: 1rem; }
+  .text-success { color: var(--green); font-size: 13px; font-weight: 600; margin-top: 6px; }
+  .text-error { color: var(--red); font-size: 13px; font-weight: 600; margin-top: 6px; }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-brand">
+      <div class="topbar-logo">CF</div>
+      <div>
+        <div class="topbar-name">Chevron Federal Credit Union</div>
+        <div class="topbar-sub">AVP, Member Experience — Learning Module</div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="progress-wrap">
+        <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+        <span class="progress-label" id="progressLabel">0 of 6</span>
+      </div>
+      <span class="badge-xp" id="xpBadge">0 XP</span>
+    </div>
+  </div>
+
+  <!-- SCREEN 0: HERO -->
+  <div class="screen active" id="screen-0">
+    <div class="hero-body">
+      <div class="hero-eyebrow">AVP, Member Experience — Role Simulation</div>
+      <h1 class="hero-title">Closing the <span>Loop</span></h1>
+      <p class="hero-desc">Step into the AVP, Member Experience role at Chevron Federal Credit Union. A member satisfaction alert just hit your dashboard. Work through the full enterprise response cycle — from diagnosing friction to presenting findings to executive leadership.</p>
+      <div class="hero-chips">
+        <span class="chip"><span class="chip-dot"></span>Survey Governance</span>
+        <span class="chip"><span class="chip-dot"></span>Journey Mapping</span>
+        <span class="chip"><span class="chip-dot"></span>SLA Tracking</span>
+        <span class="chip"><span class="chip-dot"></span>Detractor Recovery</span>
+        <span class="chip"><span class="chip-dot"></span>Executive Reporting</span>
+        <span class="chip"><span class="chip-dot"></span>Cross-Functional Leadership</span>
+      </div>
+      <button class="btn-primary" onclick="goTo(1)">Begin Simulation &#8594;</button>
+      <p class="hero-meta">6 modules &nbsp;·&nbsp; ~20 min &nbsp;·&nbsp; Earn up to 600 XP</p>
+    </div>
+  </div>
+
+  <!-- SCREEN 1: ALERT TRIAGE -->
+  <div class="screen" id="screen-1">
+    <div class="content-wrap">
+      <div class="screen-header">
+        <div class="step-badge">1</div>
+        <div>
+          <div class="screen-title">Member Satisfaction Alert</div>
+          <div class="screen-sub">Your VoM dashboard flagged a drop in CSAT scores. Review the alert and identify the priority friction area.</div>
+        </div>
+      </div>
+
+      <div class="alert-card">
+        <div class="alert-icon">⚠️</div>
+        <div>
+          <div class="alert-title">Enterprise Alert — CSAT Drop Detected</div>
+          <div class="alert-body">This week's post-interaction survey data shows a 14-point drop in member satisfaction scores across the Contact Center channel. Detractor rate has risen to 31%. Three departments have open action items from last month's Member Experience Committee meeting that remain unresolved. Escalation required.</div>
+        </div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-num" style="color:var(--red)">61</div>
+          <div class="stat-lbl">NPS Score (this week)</div>
+          <div class="stat-trend trend-down">&#9660; 14 pts from last week</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" style="color:var(--red)">31%</div>
+          <div class="stat-lbl">Detractor Rate</div>
+          <div class="stat-trend trend-down">&#9660; Up from 18%</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" style="color:var(--gold)">3</div>
+          <div class="stat-lbl">Open Action Items</div>
+          <div class="stat-trend" style="color:var(--gold)">&#9679; Overdue</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="card-title-icon">🛠️</span> Tools in use this step</div>
+        <div>
+          <span class="tool-tag">Qualtrics VoM Dashboard</span>
+          <span class="tool-tag">NPS Tracking Report</span>
+          <span class="tool-tag">Survey Governance Platform</span>
+          <span class="tool-tag">Microsoft Excel</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">&#10067; Decision Point</div>
+        <p style="font-size:13px;color:var(--gray-500);margin-bottom:12px;">As AVP, Member Experience, what is your first action after reviewing this alert?</p>
+        <div class="choice-list" id="choices-1">
+          <button class="choice-btn" onclick="checkChoice(this,'A',1)"><span class="choice-letter">A</span>Email the Contact Center manager asking them to fix the CSAT scores directly.</button>
+          <button class="choice-btn" onclick="checkChoice(this,'B',1)"><span class="choice-letter">B</span>Cross-reference survey data with QA findings to identify the specific friction points driving the drop, then schedule a cross-functional debrief.</button>
+          <button class="choice-btn" onclick="checkChoice(this,'C',1)"><span class="choice-letter">C</span>Wait until next week's data arrives before taking action to confirm the trend.</button>
+          <button class="choice-btn" onclick="checkChoice(this,'D',1)"><span class="choice-letter">D</span>Escalate immediately to the CEO without gathering additional data.</button>
+        </div>
+        <div id="feedback-1" class="hidden mt-sm"></div>
+      </div>
+    </div>
+    <div class="nav-bar">
+      <button class="btn-nav btn-back" onclick="goTo(0)">&#8592; Back</button>
+      <div class="step-dots" id="dots-1"></div>
+      <button class="btn-nav btn-next" id="next-1" onclick="goTo(2)" disabled>Next &#8594;</button>
+    </div>
+  </div>
+
+  <!-- SCREEN 2: JOURNEY MAPPING -->
+  <div class="screen" id="screen-2">
+    <div class="content-wrap">
+      <div class="screen-header">
+        <div class="step-badge">2</div>
+        <div>
+          <div class="screen-title">Member Journey Friction Finder</div>
+          <div class="screen-sub">Map the member journey across channels. Click on each touchpoint to review feedback. Identify and flag the two highest-friction points.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="card-title-icon">🗺️</span> Member Journey — Loan Inquiry Flow</div>
+        <div class="journey-map" id="journeyMap" style="gap:4px;padding:1rem 0;">
+          <div class="journey-step" onclick="selectJourney(this,'online-app')">
+            <div class="journey-node" id="jn-online-app">
+              <div class="journey-icon">💻</div>
+              <div class="journey-label">Online App</div>
+              <div class="journey-channel">Digital</div>
+            </div>
+          </div>
+          <div class="journey-connector"></div>
+          <div class="journey-step" onclick="selectJourney(this,'phone-inquiry')">
+            <div class="journey-node flagged" id="jn-phone-inquiry">
+              <div class="journey-icon">📞</div>
+              <div class="journey-label">Phone Inquiry</div>
+              <div class="journey-channel">Contact Center</div>
+              <div class="friction-badge">High friction</div>
+            </div>
+          </div>
+          <div class="journey-connector"></div>
+          <div class="journey-step" onclick="selectJourney(this,'doc-upload')">
+            <div class="journey-node" id="jn-doc-upload">
+              <div class="journey-icon">📄</div>
+              <div class="journey-label">Doc Upload</div>
+              <div class="journey-channel">Digital</div>
+            </div>
+          </div>
+          <div class="journey-connector"></div>
+          <div class="journey-step" onclick="selectJourney(this,'underwriting')">
+            <div class="journey-node flagged" id="jn-underwriting">
+              <div class="journey-icon">🔍</div>
+              <div class="journey-label">Underwriting</div>
+              <div class="journey-channel">Operations</div>
+              <div class="friction-badge">High friction</div>
+            </div>
+          </div>
+          <div class="journey-connector"></div>
+          <div class="journey-step" onclick="selectJourney(this,'decision')">
+            <div class="journey-node" id="jn-decision">
+              <div class="journey-icon">✅</div>
+              <div class="journey-label">Decision</div>
+              <div class="journey-channel">Lending</div>
+            </div>
+          </div>
+          <div class="journey-connector"></div>
+          <div class="journey-step" onclick="selectJourney(this,'followup')">
+            <div class="journey-node" id="jn-followup">
+              <div class="journey-icon">📬</div>
+              <div class="journey-label">Follow-Up</div>
+              <div class="journey-channel">Chat / Email</div>
+            </div>
+          </div>
+        </div>
+        <div id="journey-detail" class="hidden" style="border-top:1px solid var(--gray-100);padding-top:1rem;margin-top:0.5rem;">
+          <div class="card-title" id="jd-title"></div>
+          <p id="jd-body" style="font-size:13px;color:var(--gray-500);line-height:1.6;"></p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="card-title-icon">📊</span> VoM Feedback — Top Themes This Week</div>
+        <table class="feedback-table">
+          <thead>
+            <tr>
+              <th>Theme</th>
+              <th>Channel</th>
+              <th>Volume</th>
+              <th>Avg Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Long hold times / repeated transfers</td>
+              <td>Contact Center</td>
+              <td>147 responses</td>
+              <td><span class="score-pill score-low">2.1 / 5</span></td>
+            </tr>
+            <tr>
+              <td>Unclear underwriting timeline</td>
+              <td>Operations</td>
+              <td>89 responses</td>
+              <td><span class="score-pill score-low">2.4 / 5</span></td>
+            </tr>
+            <tr>
+              <td>Document upload portal errors</td>
+              <td>Digital</td>
+              <td>34 responses</td>
+              <td><span class="score-pill score-mid">3.1 / 5</span></td>
+            </tr>
+            <tr>
+              <td>Friendly and helpful staff</td>
+              <td>All channels</td>
+              <td>203 responses</td>
+              <td><span class="score-pill score-high">4.7 / 5</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="card-title-icon">🛠️</span> Tools in use this step</div>
+        <div>
+          <span class="tool-tag">Medallia Journey Analytics</span>
+          <span class="tool-tag">Qualtrics Theme Analysis</span>
+          <span class="tool-tag">Microsoft PowerPoint</span>
+          <span class="tool-tag">Process Mapping Tools</span>
+        </div>
+      </div>
+
+      <div id="journey-task" class="card" style="border-color:var(--teal-mid);">
+        <div class="card-title">✅ Task — Confirm Friction Points</div>
+        <p style="font-size:13px;color:var(--gray-500);margin-bottom:10px;">Based on the VoM data, which two touchpoints require immediate cross-functional intervention?</p>
+        <div class="choice-list" id="choices-2">
+          <button class="choice-btn" onclick="checkChoice(this,'A',2)"><span class="choice-letter">A</span>Online App and Follow-Up — digital channels need the most attention.</button>
+          <button class="choice-btn" onclick="checkChoice(this,'B',2)"><span class="choice-letter">B</span>Phone Inquiry (Contact Center) and Underwriting (Operations) — highest friction scores and volume.</button>
+          <button class="choice-btn" onclick="checkChoice(this,'C',2)"><span class="choice-letter">C</span>Document Upload and Decision — mid-range scores indicate emerging risk.</button>
+        </div>
+        <div id="feedback-2" class="hidden mt-sm"></div>
+      </div>
+    </div>
+    <div class="nav-bar">
+      <button class="btn-nav btn-back" onclick="goTo(1)">&#8592; Back</button>
+      <div class="step-dots" id="dots-2"></div>
+      <button class="btn-nav btn-next" id="next-2" onclick="goTo(3)" disabled>Next &#8594;</button>
+    </div>
+  </div>
+
+  <!-- SCREEN 3: SLA TRACKING -->
+  <div class="screen" id="screen-3">
+    <div class="content-wrap">
+      <div class="screen-header">
+        <div class="step-badge">3</div>
+        <div>
+          <div class="screen-title">Set & Track Service-Level Expectations</div>
+          <div class="screen-sub">Review each department's SLA compliance. Identify which departments need escalation and assign corrective action owners.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="card-title-icon">📋</span> Member Experience Committee — Open Action Items</div>
+        <div id="sla-list">
+          <div class="sla-row">
+            <span class="sla-dept">Contact Center</span>
+            <div class="sla-track"><div class="sla-fill" style="width:38%;background:var(--red)"></div></div>
+            <span class="sla-pct">38%</span>
+            <span class="sla-status"><span class="score-pill score-low">Escalate</span></span>
+          </div>
+          <div class="sla-row">
+            <span class="sla-dept">Operations</span>
+            <div class="sla-track"><div class="sla-fill" style="width:52%;background:var(--red)"></div></div>
+            <span class="sla-pct">52%</span>
+            <span class="sla-status"><span class="score-pill score-low">Escalate</span></span>
+          </div>
+          <div class="sla-row">
+            <span class="sla-dept">Digital / eBranch</span>
+            <div class="sla-track"><div class="sla-fill" style="width:74%;background:var(--gold)"></div></div>
+            <span class="sla-pct">74%</span>
+            <span class="sla-status"><span class="score-pill score-mid">At Risk</span></span>
+          </div>
+          <div class="sla-row">
+            <span class="sla-dept">Lending</span>
+            <div class="sla-track"><div class="sla-fill" style="width:91%;background:var(--green)"></div></div>
+            <span class="sla-pct">91%</span>
+            <span class="sla-status"><span class="score-pill score-high">On Track</span></span>
+          </div>
+          <div class="sla-row">
+            <span class="sla-dept">Member Support</span>
+            <div class="sla-track"><div class="sla-fill" style="width:88%;background:var(--green)"></div></div>
+            <span class="sla-pct">88%</span>
+            <span class="sla-status"><span class="score-pill score-high">On Track</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">&#10067; Decision Point — Escalation Protocol</div>
+        <p style="font-size:13px;color:var(--gray-500);margin-bottom:12px;">Contact Center is at 38% SLA compliance. As AVP, what is the correct response under your enterprise follow-up discipline framework?</p>
+        <div class="choice-list" id="choices-3">
+          <button class="choice-btn" onclick="checkChoice(this,'A',3)"><span class="choice-letter">A</span>Send a reminder email to the Contact Center team and revisit at next month's committee meeting.</button>
+          <button class="choice-btn" onclick="checkChoice(this,'B',3)"><span class="choice-letter">B</span>Escalate to the Contact Center department head with a 5-business-day resolution deadline, document the escalation in the committee tracker, and schedule a check-in before the deadline.</button>
+          <button class="choice-btn" onclick="checkChoice(this,'C',3)"><span class="choice-letter">C</span>Remove Contact Center from the action item list since the issue may resolve on its own.</button>
+        </div>
+        <div id="feedback-3" class="hidden mt-sm"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="card-title-icon">🛠️</span> Tools in use this step</div>
+        <div>
+          <span class="tool-tag">Microsoft Excel — SLA Tracker</span>
+          <span class="tool-tag">Asana / Action Item Log</span>
+          <span class="tool-tag">Microsoft Teams</span>
+          <span class="tool-tag">PowerBI Dashboard</span>
+        </div>
+      </div>
+    </div>
+    <div class="nav-bar">
+      <button class="btn-nav btn-back" onclick="goTo(2)">&#8592; Back</button>
+      <div class="step-dots" id="dots-3"></div>
+      <button class="btn-nav btn-next" id="next-3" onclick="goTo(4)" disabled>Next &#8594;</button>
+    </div>
+  </div>
+
+  <!-- SCREEN 4: DETRACTOR RECOVERY -->
+  <div class="screen" id="screen-4">
+    <div class="content-wrap">
+      <div class="screen-header">
+        <div class="step-badge">4</div>
+        <div>
+          <div class="screen-title">Detractor Recovery Protocol</div>
+          <div class="screen-sub">Three members submitted scores of 0–6 this week with detailed comments. Coordinate the recovery response across departments.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="card-title-icon">💬</span> Detractor Feedback — This Week</div>
+        <table class="feedback-table">
+          <thead><tr><th>Member ID</th><th>Channel</th><th>Score</th><th>Comment</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr>
+              <td style="font-weight:600">M-4471</td>
+              <td>Contact Center</td>
+              <td><span class="score-pill score-low">2</span></td>
+              <td>"Was transferred 4 times and never got an answer about my loan status."</td>
+              <td><span class="score-pill score-low">Needs Recovery</span></td>
+            </tr>
+            <tr>
+              <td style="font-weight:600">M-3892</td>
+              <td>Operations</td>
+              <td><span class="score-pill score-low">3</span></td>
+              <td>"No one told me underwriting would take 3 weeks. I almost went to another bank."</td>
+              <td><span class="score-pill score-low">Needs Recovery</span></td>
+            </tr>
+            <tr>
+              <td style="font-weight:600">M-5103</td>
+              <td>Digital</td>
+              <td><span class="score-pill score-mid">4</span></td>
+              <td>"Portal kept timing out during document upload. Had to try 6 times."</td>
+              <td><span class="score-pill score-mid">Monitor</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="card-title">&#10067; Recovery Action — Member M-4471</div>
+        <p style="font-size:13px;color:var(--gray-500);margin-bottom:12px;">Member M-4471 scored a 2 after being transferred 4 times with no resolution. As AVP, what is the correct recovery sequence?</p>
+        <div class="choice-list" id="choices-4">
+          <button class="choice-btn" onclick="checkChoice(this,'A',4)"><span class="choice-letter">A</span>Flag the member in the survey system, coordinate with Contact Center leadership to have a senior agent make a personal outreach call within 48 hours, document the recovery in the detractor log, and track to resolution.</button>
+          <button class="choice-btn" onclick="checkChoice(this,'B',4)"><span class="choice-letter">B</span>Send the member an automated apology email and close the case.</button>
+          <button class="choice-btn" onclick="checkChoice(this,'C',4)"><span class="choice-letter">C</span>Add the comment to the monthly report without taking immediate action since detractor rates are a lagging indicator.</button>
+        </div>
+        <div id="feedback-4" class="hidden mt-sm"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="card-title-icon">🛠️</span> Tools in use this step</div>
+        <div>
+          <span class="tool-tag">Qualtrics Closed-Loop</span>
+          <span class="tool-tag">CRM — Member Record</span>
+          <span class="tool-tag">Detractor Recovery Log</span>
+          <span class="tool-tag">Microsoft Teams</span>
+        </div>
+      </div>
+    </div>
+    <div class="nav-bar">
+      <button class="btn-nav btn-back" onclick="goTo(3)">&#8592; Back</button>
+      <div class="step-dots" id="dots-4"></div>
+      <button class="btn-nav btn-next" id="next-4" onclick="goTo(5)" disabled>Next &#8594;</button>
+    </div>
+  </div>
+
+  <!-- SCREEN 5: EXECUTIVE REPORT -->
+  <div class="screen" id="screen-5">
+    <div class="content-wrap">
+      <div class="screen-header">
+        <div class="step-badge">5</div>
+        <div>
+          <div class="screen-title">Build the Executive Report</div>
+          <div class="screen-sub">Prepare your weekly member experience update for the leadership team. Synthesize your findings into a clear, action-oriented brief.</div>
+        </div>
+      </div>
+
+      <div class="two-col-grid">
+        <div>
+          <div class="card" style="margin-bottom:1rem">
+            <div class="card-title"><span class="card-title-icon">📝</span> Key Finding</div>
+            <div class="report-section">
+              <div class="report-label">Summarize the primary member experience issue this week (1–2 sentences)</div>
+              <textarea class="report-input" id="rpt-finding" placeholder="e.g. NPS dropped 14 points driven by Contact Center transfer friction and unclear underwriting timelines..." oninput="updatePreview()"></textarea>
+            </div>
+          </div>
+          <div class="card" style="margin-bottom:1rem">
+            <div class="card-title"><span class="card-title-icon">⚡</span> Action Taken</div>
+            <div class="report-section">
+              <div class="report-label">What cross-functional action did you initiate?</div>
+              <textarea class="report-input" id="rpt-action" placeholder="e.g. Escalated Contact Center and Operations SLA items to department heads with 5-day resolution deadlines..." oninput="updatePreview()"></textarea>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="card-title-icon">📈</span> Recommended Priority</div>
+            <div class="report-section">
+              <div class="report-label">What should leadership prioritize to improve loyalty and retention?</div>
+              <textarea class="report-input" id="rpt-priority" placeholder="e.g. Authorize a Contact Center routing review and set an underwriting communication SLA of 48 hours..." oninput="updatePreview()"></textarea>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="report-preview" id="reportPreview">
+            <div class="report-preview-title">&#128196; Member Experience Brief — Week of June 16</div>
+            <div class="report-preview-section">
+              <div class="report-preview-label">Key Finding</div>
+              <div class="report-preview-body" id="prev-finding" style="color:rgba(255,255,255,0.4);font-style:italic">Your finding will appear here...</div>
+            </div>
+            <div class="report-preview-section">
+              <div class="report-preview-label">Action Taken</div>
+              <div class="report-preview-body" id="prev-action" style="color:rgba(255,255,255,0.4);font-style:italic">Your actions will appear here...</div>
+            </div>
+            <div class="report-preview-section">
+              <div class="report-preview-label">Leadership Priority</div>
+              <div class="report-preview-body" id="prev-priority" style="color:rgba(255,255,255,0.4);font-style:italic">Your recommendation will appear here...</div>
+            </div>
+            <div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.15);">
+              <div class="report-preview-label">Submitted by</div>
+              <div class="report-preview-body">AVP, Member Experience &nbsp;·&nbsp; Chevron Federal Credit Union</div>
+            </div>
+          </div>
+          <div class="card" style="margin-top:1rem">
+            <div class="card-title"><span class="card-title-icon">🛠️</span> Tools in use</div>
+            <div>
+              <span class="tool-tag">Microsoft PowerPoint</span>
+              <span class="tool-tag">Power BI</span>
+              <span class="tool-tag">Qualtrics Reports</span>
+              <span class="tool-tag">Microsoft Teams</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:right">
+        <button class="btn-nav btn-next" onclick="submitReport()" id="btn-submit-report">Submit Report &#8594;</button>
+        <div id="report-feedback" class="hidden text-success mt-sm" style="text-align:right">&#10003; Report submitted. Well done — this is what executive readiness looks like.</div>
+      </div>
+    </div>
+    <div class="nav-bar">
+      <button class="btn-nav btn-back" onclick="goTo(4)">&#8592; Back</button>
+      <div class="step-dots" id="dots-5"></div>
+      <button class="btn-nav btn-next" id="next-5" onclick="goTo(6)" disabled>Finish &#8594;</button>
+    </div>
+  </div>
+
+  <!-- SCREEN 6: COMPLETE -->
+  <div class="screen" id="screen-6">
+    <div class="complete-body">
+      <div class="complete-ring">&#127942;</div>
+      <div class="complete-title">Simulation Complete</div>
+      <p class="complete-sub">You completed the full AVP, Member Experience workflow at Chevron Federal Credit Union — from triage to executive reporting. Every step mirrors a real duty from the role description.</p>
+      <div class="complete-grid">
+        <div class="complete-stat">
+          <div class="complete-stat-num" id="final-xp">0</div>
+          <div class="complete-stat-lbl">XP earned</div>
+        </div>
+        <div class="complete-stat">
+          <div class="complete-stat-num" id="final-correct">0/5</div>
+          <div class="complete-stat-lbl">Correct decisions</div>
+        </div>
+        <div class="complete-stat">
+          <div class="complete-stat-num">6</div>
+          <div class="complete-stat-lbl">Skills demonstrated</div>
+        </div>
+      </div>
+      <div class="card" style="width:100%;max-width:500px;text-align:left;margin-bottom:1.5rem">
+        <div class="card-title">&#127891; Skills demonstrated in this module</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px">
+          <span class="tool-tag">Survey Governance</span>
+          <span class="tool-tag">VoM Data Analysis</span>
+          <span class="tool-tag">Journey Mapping</span>
+          <span class="tool-tag">SLA Tracking</span>
+          <span class="tool-tag">Detractor Recovery</span>
+          <span class="tool-tag">Executive Reporting</span>
+          <span class="tool-tag">Cross-Functional Leadership</span>
+          <span class="tool-tag">Follow-Up Discipline</span>
+          <span class="tool-tag">Qualtrics</span>
+          <span class="tool-tag">Medallia</span>
+          <span class="tool-tag">Power BI</span>
+          <span class="tool-tag">Microsoft Office</span>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="restart()">Restart Simulation &#8635;</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  let currentScreen = 0;
+  let xp = 0;
+  let correct = 0;
+  const totalScreens = 6;
+
+  const correctAnswers = { 1:'B', 2:'B', 3:'B', 4:'A' };
+  const feedbackCorrect = {
+    1: "Correct. Cross-referencing QA data with survey results before acting is exactly how the AVP role operates — diagnose the friction, then coordinate. Bias toward action with evidence.",
+    2: "Correct. Phone Inquiry (Contact Center) at 2.1/5 with 147 responses and Underwriting at 2.4/5 with 89 responses are the clear priorities. Highest volume and lowest scores drive the agenda.",
+    3: "Correct. Formal escalation with a documented deadline and a scheduled check-in is the follow-up discipline framework the JD calls out explicitly. Reminders without accountability don't close loops.",
+    4: "Correct. Personal outreach within 48 hours, documented in the detractor log and tracked to resolution — this is closed-loop member recovery. It demonstrates that CFCU acts on feedback, not just collects it."
+  };
+  const feedbackWrong = {
+    1: "Not quite. Acting without first diagnosing the data — or waiting too long — both miss the mark. The AVP role requires evidence-based, timely cross-functional action.",
+    2: "Not quite. Focus on the highest-volume, lowest-score items. Document Upload (34 responses, 3.1/5) is emerging risk, not the immediate priority.",
+    3: "Not quite. A reminder email without a deadline or follow-up has no accountability built in. Removing items from the tracker eliminates visibility entirely. Neither reflects SLA discipline.",
+    4: "Not quite. Automated responses and delayed action both fail the detractor. Personal, documented, time-bound outreach is the standard for closed-loop recovery."
+  };
+
+  const journeyDetails = {
+    'online-app': { title: '💻 Online Application', body: 'Members rate this touchpoint 3.8/5. Minor friction around navigation clarity but not a primary driver of the current CSAT drop. Monitor.' },
+    'phone-inquiry': { title: '📞 Phone Inquiry — Contact Center', body: 'CRITICAL: 147 members rated this 2.1/5 this week. Primary complaint is excessive transfers and no resolution. This is the top friction driver and requires immediate cross-functional escalation.' },
+    'doc-upload': { title: '📄 Document Upload — Digital', body: 'Portal timeout errors reported by 34 members (3.1/5). Emerging risk but not the primary driver. Digital team has an open action item from last month.' },
+    'underwriting': { title: '🔍 Underwriting — Operations', body: 'CRITICAL: 89 members rated this 2.4/5. Complaint is unclear timelines and no proactive communication during the 3-week review period. Requires SLA reset and communication protocol.' },
+    'decision': { title: '✅ Loan Decision — Lending', body: 'Members rate this 4.2/5. Lending is one of the on-track departments. No immediate action required.' },
+    'followup': { title: '📬 Follow-Up — Chat / Email', body: 'Members rate this 3.6/5. Some confusion about next steps after loan decision. Low volume of complaints — monitor but not a primary priority this cycle.' }
+  };
+
+  function goTo(n) {
+    document.getElementById('screen-' + currentScreen).classList.remove('active');
+    currentScreen = n;
+    document.getElementById('screen-' + n).classList.add('active');
+    updateProgress();
+    renderDots(n);
+    window.scrollTo(0, 0);
+  }
+
+  function updateProgress() {
+    const pct = currentScreen === 0 ? 0 : Math.round((currentScreen / totalScreens) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressLabel').textContent = currentScreen === 0 ? '0 of 6' : currentScreen + ' of ' + totalScreens;
+    document.getElementById('xpBadge').textContent = xp + ' XP';
+  }
+
+  function renderDots(screen) {
+    const el = document.getElementById('dots-' + screen);
+    if (!el) return;
+    let html = '';
+    for (let i = 1; i <= totalScreens; i++) {
+      const cls = i < screen ? 'done' : i === screen ? 'active' : '';
+      html += '<div class="step-dot ' + cls + '"></div>';
+    }
+    el.innerHTML = html;
+  }
+
+  function checkChoice(btn, answer, screen) {
+    const list = document.getElementById('choices-' + screen);
+    const btns = list.querySelectorAll('.choice-btn');
+    btns.forEach(b => b.classList.add('disabled'));
+    const feedback = document.getElementById('feedback-' + screen);
+    const isCorrect = answer === correctAnswers[screen];
+    btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+    feedback.classList.remove('hidden');
+    if (isCorrect) {
+      feedback.className = 'text-success mt-sm';
+      feedback.textContent = '✓ ' + feedbackCorrect[screen];
+      xp += 100;
+      correct++;
+      showToast('+ 100 XP — Great decision!', 'success');
+    } else {
+      feedback.className = 'text-error mt-sm';
+      feedback.textContent = '✗ ' + feedbackWrong[screen];
+      showToast('Not quite — review the feedback below.', 'error');
+      btns.forEach(b => { if (b !== btn && b.dataset && false) {} });
+      const correctBtn = Array.from(btns).find((b,i) => String.fromCharCode(65+i) === correctAnswers[screen]);
+      if (correctBtn) correctBtn.classList.add('correct');
+    }
+    document.getElementById('next-' + screen).disabled = false;
+    updateProgress();
+  }
+
+  function selectJourney(el, key) {
+    document.querySelectorAll('.journey-node').forEach(n => n.classList.remove('selected'));
+    document.getElementById('jn-' + key).classList.add('selected');
+    const detail = document.getElementById('journey-detail');
+    detail.classList.remove('hidden');
+    document.getElementById('jd-title').textContent = journeyDetails[key].title;
+    document.getElementById('jd-body').textContent = journeyDetails[key].body;
+  }
+
+  function updatePreview() {
+    const finding = document.getElementById('rpt-finding').value;
+    const action = document.getElementById('rpt-action').value;
+    const priority = document.getElementById('rpt-priority').value;
+    const pf = document.getElementById('prev-finding');
+    const pa = document.getElementById('prev-action');
+    const pp = document.getElementById('prev-priority');
+    pf.style.cssText = finding ? 'color:#fff' : 'color:rgba(255,255,255,0.4);font-style:italic';
+    pa.style.cssText = action ? 'color:#fff' : 'color:rgba(255,255,255,0.4);font-style:italic';
+    pp.style.cssText = priority ? 'color:#fff' : 'color:rgba(255,255,255,0.4);font-style:italic';
+    pf.textContent = finding || 'Your finding will appear here...';
+    pa.textContent = action || 'Your actions will appear here...';
+    pp.textContent = priority || 'Your recommendation will appear here...';
+  }
+
+  function submitReport() {
+    const f = document.getElementById('rpt-finding').value.trim();
+    const a = document.getElementById('rpt-action').value.trim();
+    const p = document.getElementById('rpt-priority').value.trim();
+    if (!f || !a || !p) {
+      showToast('Complete all three fields before submitting.', 'error');
+      return;
+    }
+    xp += 100;
+    correct++;
+    updateProgress();
+    document.getElementById('report-feedback').classList.remove('hidden');
+    document.getElementById('btn-submit-report').disabled = true;
+    document.getElementById('next-5').disabled = false;
+    showToast('+ 100 XP — Executive report submitted!', 'success');
+  }
+
+  function showToast(msg, type) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast toast-' + type + ' show';
+    setTimeout(() => t.className = 'toast', 2400);
+  }
+
+  function restart() {
+    xp = 0; correct = 0;
+    document.querySelectorAll('.choice-btn').forEach(b => { b.className = 'choice-btn'; b.disabled = false; });
+    document.querySelectorAll('[id^="feedback-"]').forEach(el => el.classList.add('hidden'));
+    document.querySelectorAll('[id^="next-"]').forEach(el => el.disabled = true);
+    document.getElementById('rpt-finding').value = '';
+    document.getElementById('rpt-action').value = '';
+    document.getElementById('rpt-priority').value = '';
+    document.getElementById('report-feedback').classList.add('hidden');
+    document.getElementById('btn-submit-report').disabled = false;
+    updatePreview();
+    goTo(0);
+  }
+
+  function finish() {
+    document.getElementById('final-xp').textContent = xp;
+    document.getElementById('final-correct').textContent = correct + '/5';
+    goTo(6);
+  }
+
+  renderDots(1);
+  updateProgress();
+</script>
+</body>
+</html>
